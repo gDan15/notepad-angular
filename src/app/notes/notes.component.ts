@@ -11,13 +11,17 @@ import { Note } from '../note';
 export class NotesComponent implements OnInit {
 
   notes:Note[];
+  selectedNote:Note;
   constructor(private noteService : NoteService) { }
 
   ngOnInit() {
+      this.getNote();
   }
 
   getNote() : void{
-    this.noteService.getNote().subscribe(notes => this.notes = notes);;
+    this.noteService.getNote().subscribe(notes => this.notes = notes);
   }
-
+  onSelect(note: Note): void {
+    this.selectedNote = note;
+  }
 }

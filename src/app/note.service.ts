@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import { MessageService } from './message.service';
 import { Note } from './note';
 
 @Injectable({
@@ -10,14 +11,17 @@ import { Note } from './note';
 })
 export class NoteService {
 
-  private noteUrl = "note/api/get";
+  private getNotesUrl = "http://localhost:8000/note/api/get";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private messageService: MessageService) { }
 
   // GET all notes
-  getNote (): Observable<Note[]> {
-    return this.http.get<Note[]>(this.noteUrl);
+  getNote(): Observable<Note[]> {
+    this.messageService.add('NoteService: fetched notes');
+    return this.http.get<Note[]>(this.getNotesUrl);
   }
+
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.

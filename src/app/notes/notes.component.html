@@ -1,5 +1,9 @@
+<h2>My notes</h2>
 <ul class="notes">
-  <li *ngFor="let note of notes">
+  <li *ngFor="let note of notes"
+    [class.selected]="note === selectedNote"
+    (click)="onSelect(note)">
     <span class="badge">{{note.id}}</span> {{note.title}}
   </li>
 </ul>
+<app-note-detail [note]="selectedNote"></app-note-detail>

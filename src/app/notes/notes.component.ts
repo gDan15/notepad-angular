@@ -15,11 +15,11 @@ export class NotesComponent implements OnInit {
   constructor(private noteService : NoteService) { }
 
   ngOnInit() {
-      this.getNote();
+      this.getNotes();
   }
 
-  getNote() : void{
-    this.noteService.getNote().subscribe(notes => this.notes = notes);
+  getNotes() : void{
+    this.noteService.getNotes().subscribe(notes => this.notes = notes);
   }
   onSelect(note: Note): void {
     this.selectedNote = note;

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class MessageService {
   messages: string[] = [];
-
+  // add message to cache
   add(message: string) {
     this.messages.push(message);
   }

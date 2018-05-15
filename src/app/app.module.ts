@@ -9,6 +9,7 @@ import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NoteAddComponent } from './note-add/note-add.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NotesComponent,
     NoteDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    NoteAddComponent
   ],
   imports: [
     BrowserModule,

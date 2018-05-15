@@ -12,24 +12,56 @@ import { Note } from './note';
 export class NoteService {
 
   private getNotesUrl = "http://localhost:8000/note/api/get";
+  private notesUrl = "http://localhost:8000/note/api";
 
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
-  // GET all notes
+  // GET : get all notes
   getNotes(): Observable<Note[]> {
     this.messageService.add('NoteService: fetched notes');
-    return this.http.get<Note[]>(this.getNotesUrl);
+    return this.http.get<Note[]>(this.getNotesUrl)
+    .pipe
+    (
+      catchError(this.handleError('getNotes', []))
+    );
   }
-  // GET one note
+  // GET : get one note
   getNote(id: number): Observable<Note> {
     // TODO: send the message _after_ fetching the hero
     const getOneNoteUrl = `${this.getNotesUrl}/${id}`;
-    this.messageService.add(`NoteService: fetched note id=${id}`);
-    return this.http.get<Note>(getOneNoteUrl);
+    // this.messageService.add(`NoteService: fetched note id=${id}`);
+    return this.http.get<Note>(getOneNoteUrl)
+    .pipe
+    (
+      tap(_ => this.log(`fetched hero id=${id}`)),
+      catchError(this.handleError<Note>(`getNote id=${id}`))
+    );
   }
-
-
+  // PUT : update note informations
+  // TODO : error 405 while trying to update, doesn't work at all.
+  updateNote(note: Note): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    const noteUrlPut = `${this.notesUrl}/put/${note.id}`;
+    return this.http.put(noteUrlPut, note, httpOptions).pipe
+    (
+      tap(_ => this.log(`updated note id=${note.id}`)),
+      catchError(this.handleError<any>('updateNote'))
+    );
+  }
+  // POST : add a note
+  addNote(note: Note): Observable<Note> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+    };
+    const noteUrlPut = `${this.notesUrl}/post`;
+    return this.http.post<Note>(noteUrlPut, note, httpOptions).pipe(
+      tap((note: Note) => this.log(`added note w/ id=${note.id}`)),
+      catchError(this.handleError<Note>('addNote'))
+    );
+  }
   /**
  * Handle Http operation that failed.
  * Let the app continue.
@@ -48,5 +80,8 @@ export class NoteService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+  private log(message: string) {
+    this.messageService.add('NoteService: ' + message);
   }
 }

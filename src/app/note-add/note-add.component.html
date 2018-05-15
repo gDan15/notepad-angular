@@ -1,0 +1,20 @@
+<div>
+  <label>Title:
+    <input #title />
+  </label>
+  <label>Content:
+    <input #content />
+  </label>
+  <label>Date:
+    <input #date />
+  </label>
+  <label>Category:
+    <input #category />
+  </label>
+
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="addNote(title.value, content.value, date.value, category.value); title.value=''">
+    submit
+  </button>
+</div>

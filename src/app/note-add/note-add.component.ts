@@ -22,6 +22,7 @@ export class NoteAddComponent implements OnInit {
   }
   addNote(title:string, content:string, date:string, category:string):void{
     this.note = new Note(title,content,date,category);
+    // this.note.setWordingNote("test");
     console.log('My note is called ' + this.note.title);
     this.noteService.addNote(this.note)
       .subscribe(note => {

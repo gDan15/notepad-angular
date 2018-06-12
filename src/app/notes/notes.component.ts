@@ -26,4 +26,8 @@ export class NotesComponent implements OnInit {
   onSelect(note: Note): void {
     this.selectedNote = note;
   }
+  delete(note: Note): void {
+    // this.notes = this.heroes.filter(h => h !== hero);
+    this.noteService.deleteNote(note).subscribe();
+  }
 }

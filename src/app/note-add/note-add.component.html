@@ -1,17 +1,22 @@
 <div>
+  <hr>
   <label>Title:
     <input #title />
   </label>
+  <hr>
   <label>Content:
     <input #content />
   </label>
+  <hr>
   <label>Date:
-    <input #date />
+    <!-- <md-datepicker ng-model="birthday"></md-datepicker> -->
+    <input id="datetime" #date />
   </label>
+  <hr>
   <label>Category:
     <input #category />
   </label>
-
+  <hr>
 
   <!-- (click) passes input value to add() and then clears the input -->
   <button (click)="addNote(title.value, content.value, date.value, category.value); title.value=''">

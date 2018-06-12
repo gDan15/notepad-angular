@@ -20,35 +20,48 @@ export class NoteService {
   // GET : get all notes
   getNotes(): Observable<Note[]> {
     this.messageService.add('NoteService: fetched notes');
-    return this.http.get<Note[]>(this.getNotesUrl)
-    .pipe
-    (
-      catchError(this.handleError('getNotes', []))
-    );
+    return this.http.get<Note[]>(this.getNotesUrl);
+    // .pipe
+    // (
+    //   catchError(this.handleError('getNotes', []))
+    // );
   }
   // GET : get one note
   getNote(id: number): Observable<Note> {
-    // TODO: send the message _after_ fetching the hero
+    // TODO: send the message _after_ fetching the note
     const getOneNoteUrl = `${this.getNotesUrl}/${id}`;
     // this.messageService.add(`NoteService: fetched note id=${id}`);
     return this.http.get<Note>(getOneNoteUrl)
     .pipe
     (
-      tap(_ => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<Note>(`getNote id=${id}`))
+      tap(_ => this.log(`fetched note id=${id}`))
+      // catchError(this.handleError<Note>(`getNote id=${id}`))
     );
   }
   // PUT : update note informations
-  // TODO : error 405 while trying to update, doesn't work at all.
   updateNote(note: Note): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     const noteUrlPut = `${this.notesUrl}/put/${note.id}`;
-    return this.http.put(noteUrlPut, note, httpOptions).pipe
+    return this.http.put(noteUrlPut, note, httpOptions)
+    .pipe
     (
-      tap(_ => this.log(`updated note id=${note.id}`)),
-      catchError(this.handleError<any>('updateNote'))
+      tap(_ => this.log(`updated note id=${note.id}`))
+      // catchError(this.handleError<any>('updateNote'))
+    );
+  }
+  // DELETE : delete a note
+  deleteNote (note: Note): Observable<Note>{
+    // const id = typeof note === 'number' ? note : note.id;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+    };
+    const noteUrlDelete = `${this.notesUrl}/delete/${note.id}`;
+
+    return this.http.delete<Note>(noteUrlDelete, httpOptions).pipe(
+      tap(_ => this.log(`deleted note id=${note.id}`))
+      // catchError(this.handleError<Note>('deleteNote'))
     );
   }
   // POST : add a note
@@ -57,10 +70,11 @@ export class NoteService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
     };
     const noteUrlPut = `${this.notesUrl}/post`;
-    return this.http.post<Note>(noteUrlPut, note, httpOptions).pipe(
-      tap((note: Note) => this.log(`added note w/ id=${note.id}`)),
-      catchError(this.handleError<Note>('addNote'))
-    );
+    return this.http.post<Note>(noteUrlPut, note, httpOptions);
+    // .pipe(
+    //   tap((note: Note) => this.log(`added note w/ id=${note.id}`)),
+    //   catchError(this.handleError<Note>('addNote'))
+    // );
   }
   /**
  * Handle Http operation that failed.
@@ -68,19 +82,19 @@ export class NoteService {
  * @param operation - name of the operation that failed
  * @param result - optional value to return as the observable result
  */
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
+  // private handleError<T> (operation = 'operation', result?: T) {
+  //   return (error: any): Observable<T> => {
+  //
+  //     // TODO: send the error to remote logging infrastructure
+  //     console.error(error); // log to console instead
+  //
+  //     // TODO: better job of transforming error for user consumption
+  //     // this.log(`${operation} failed: ${error.message}`);
+  //
+  //     // Let the app keep running by returning an empty result.
+  //     return of(result as T);
+  //   };
+  // }
   private log(message: string) {
     this.messageService.add('NoteService: ' + message);
   }

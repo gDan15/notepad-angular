@@ -4,6 +4,8 @@
     <a routerLink="/detail/{{note.id}}">
       <span class="badge">{{note.id}}</span> {{note.title}}
     </a>
+    <button class="delete" title="delete note"
+    (click)="delete(note)">x</button>
   </li>
 </ul>
 <!-- <app-note-detail [note]="selectedNote"></app-note-detail> -->

@@ -1,19 +1,25 @@
 <div *ngIf="note">
   <h2>{{note.title | uppercase}} Details</h2>
+  <hr>
   <div><span>Id: </span>{{note.id}}</div>
   <div>
+    <hr>
     <label>Title:
       <input [(ngModel)]="note.title" placeholder="title">
     </label>
+    <hr>
     <label>Content:
       <input [(ngModel)]="note.content" placeholder="content">
     </label>
+    <hr>
     <label>Date:
       <input [(ngModel)]="note.date" placeholder="date">
     </label>
+    <hr>
     <label>Category:
-      <input [(ngModel)]="note.category" placeholder="category">
+      <input [(ngModel)]="note.category.wording" placeholder="category">
     </label>
+    <hr>
   </div>
 </div>
 <button (click)="goBack()">go back</button>

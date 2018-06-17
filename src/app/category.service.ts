@@ -9,7 +9,7 @@ import { Category } from './category';
 @Injectable({
   providedIn: 'root'
 })
-export class NoteService {
+export class CategoryService {
 
   private getCategoriesUrl = "http://localhost:8000/category/api/get";
   private categoriesUrl = "http://localhost:8000/category/api";
@@ -18,28 +18,28 @@ export class NoteService {
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
   // GET : get all categories
-  getCategories(): Observable<Note[]> {
-    this.messageService.add('NoteService: fetched categories');
-    return this.http.get<Note[]>(this.getCategoriesUrl);
+  getCategories(): Observable<Category[]> {
+    this.messageService.add('CategoryService: fetched categories');
+    return this.http.get<Category[]>(this.getCategoriesUrl);
     // .pipe
     // (
     //   catchError(this.handleError('getCategories', []))
     // );
   }
   // GET : get one category
-  getNote(id: number): Observable<Note> {
+  getCategory(id: number): Observable<Category> {
     // TODO: send the message _after_ fetching the category
-    const getOneNoteUrl = `${this.getCategoriesUrl}/${id}`;
-    // this.messageService.add(`NoteService: fetched category id=${id}`);
-    return this.http.get<Note>(getOneNoteUrl)
+    const getOneCategoryUrl = `${this.getCategoriesUrl}/${id}`;
+    // this.messageService.add(`CategoryService: fetched category id=${id}`);
+    return this.http.get<Category>(getOneCategoryUrl)
     .pipe
     (
       tap(_ => this.log(`fetched category id=${id}`))
-      // catchError(this.handleError<Note>(`getNote id=${id}`))
+      // catchError(this.handleError<Category>(`getCategory id=${id}`))
     );
   }
   // PUT : update category informations
-  updateNote(category: Note): Observable<any> {
+  updateCategory(category: Category): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -48,32 +48,32 @@ export class NoteService {
     .pipe
     (
       tap(_ => this.log(`updated category id=${category.id}`))
-      // catchError(this.handleError<any>('updateNote'))
+      // catchError(this.handleError<any>('updateCategory'))
     );
   }
   // DELETE : delete a category
-  deleteNote (category: Note): Observable<Note>{
+  deleteCategory (category: Category): Observable<Category>{
     // const id = typeof category === 'number' ? category : category.id;
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
     };
     const categoryUrlDelete = `${this.categoriesUrl}/delete/${category.id}`;
 
-    return this.http.delete<Note>(categoryUrlDelete, httpOptions).pipe(
+    return this.http.delete<Category>(categoryUrlDelete, httpOptions).pipe(
       tap(_ => this.log(`deleted category id=${category.id}`))
-      // catchError(this.handleError<Note>('deleteNote'))
+      // catchError(this.handleError<Category>('deleteCategory'))
     );
   }
   // POST : add a category
-  addNote(category: Note): Observable<Note> {
+  addCategory(category: Category): Observable<Category> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
     };
     const categoryUrlPut = `${this.categoriesUrl}/post`;
-    return this.http.post<Note>(categoryUrlPut, category, httpOptions);
+    return this.http.post<Category>(categoryUrlPut, category, httpOptions);
     // .pipe(
-    //   tap((category: Note) => this.log(`added category w/ id=${category.id}`)),
-    //   catchError(this.handleError<Note>('addNote'))
+    //   tap((category: Category) => this.log(`added category w/ id=${category.id}`)),
+    //   catchError(this.handleError<Category>('addCategory'))
     // );
   }
   /**
@@ -96,6 +96,6 @@ export class NoteService {
   //   };
   // }
   private log(message: string) {
-    this.messageService.add('NoteService: ' + message);
+    this.messageService.add('CategoryService: ' + message);
   }
 }

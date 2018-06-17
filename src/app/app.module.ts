@@ -11,6 +11,8 @@ import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NoteAddComponent } from './note-add/note-add.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { CategoryDetailComponent } from './category-detail/category-detail.component';
+import { CategoryAddComponent } from './category-add/category-add.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { CategoriesComponent } from './categories/categories.component';
     MessagesComponent,
     DashboardComponent,
     NoteAddComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    CategoryDetailComponent,
+    CategoryAddComponent
   ],
   imports: [
     BrowserModule,

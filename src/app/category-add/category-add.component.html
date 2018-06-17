@@ -1,0 +1,10 @@
+<div>
+  <hr>
+  <label>Title:
+    <input #wording />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="addCategory(wording.value); wording.value=''">
+    submit
+  </button>
+</div>

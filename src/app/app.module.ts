@@ -10,6 +10,8 @@ import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NoteAddComponent } from './note-add/note-add.component';
+import { CategoriesComponent } from './categories/categories.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { NoteAddComponent } from './note-add/note-add.component';
     NoteDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    NoteAddComponent
+    NoteAddComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
